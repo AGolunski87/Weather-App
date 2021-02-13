@@ -25,11 +25,32 @@ def find_closest():
         if distance < smallest:
             smallest = distance
             closest_station = station['weather_stn_id']
+
         return closest_station
 
 
 closest_stn = find_closest()
-
-
+#sets URL
 weather = weather + str(closest_stn)
+#produces list
 my_weather = get(weather).json()['items']
+#converts to string
+jsonString = json.dumps(my_weather)
+#converts to json
+ListOfFilteredKeys = json.loads(jsonString)
+#matches value based on Key.
+keyLookup = 'ambient_temp'
+#matches value based on Key.
+values_of_key = [a_dict[keyLookup] for a_dict in ListOfFilteredKeys]
+#reduces new list to single string
+mix_list = values_of_key
+delimiter = ' '
+# Convert list of items to a string value
+final_str = delimiter.join(map(str, mix_list))
+# Convert String to float
+MyTemperature = float(final_str)
+# calls function to convert Fahrenheit to Celsius and compares to my defined temp. If it is less that x degrees Prints it is cold.
+if fahr_to_celsius(MyTemperature) < 7:
+    print("It is cold")
+elif fahr_to_celsius(MyTemperature) > 7:
+  print("it is hot")

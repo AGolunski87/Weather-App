@@ -4,4 +4,5 @@ def fahr_to_celsius(temp_fahr):
 
     Return Celsius conversion of input"""
     temp_celsius = (temp_fahr - 32) * 5 / 9
+
     return temp_celsius
